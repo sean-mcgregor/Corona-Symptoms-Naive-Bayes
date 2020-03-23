@@ -19,8 +19,8 @@ import javax.swing.JPanel;
 public class Screen extends JFrame implements ActionListener {
 	
 	//creating screen elements
-	JButton button1;
-	JFileChooser fileSelector;
+	JButton fcOpen;
+	JFileChooser fc;
 	JPanel northPanel, southPanel, eastPanel, westPanel, centerPanel;
 	
 	public Screen(String title) {
@@ -28,8 +28,8 @@ public class Screen extends JFrame implements ActionListener {
 		super("title");
 		setSize(750, 400);
 		BorderLayout bl1 = new BorderLayout();
-		fileSelector = new JFileChooser();
-		button1 = new JButton("Seahawk Button");
+		fcOpen = new JButton("Select File");
+		fcOpen.addActionListener(this);
 		setLayout(bl1);
 		
 		centerPanel = new JPanel();
@@ -38,7 +38,7 @@ public class Screen extends JFrame implements ActionListener {
 		eastPanel = new JPanel();
 		westPanel = new JPanel();
 		
-		centerPanel.add(fileSelector);
+		centerPanel.add(fcOpen);
 		
 		add(centerPanel, BorderLayout.CENTER);
 		add(northPanel, BorderLayout.NORTH);
@@ -47,9 +47,30 @@ public class Screen extends JFrame implements ActionListener {
 		add(westPanel, BorderLayout.WEST);
 		setVisible(true);
 	}
+	
+	public String chooseFile() {
+		
+		String filePath = "";
+		
+		//configuring file chooser window
+		fc = new JFileChooser();
+		fc.setCurrentDirectory(new java.io.File("C:\\Users"));
+		fc.setDialogTitle("Choose File for Dataset Training");
+
+		if (fc.showOpenDialog(fcOpen) == JFileChooser.APPROVE_OPTION) {
+			
+			filePath = fc.getSelectedFile().getAbsolutePath();
+		}
+		
+		return filePath;
+	}
 	 
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		
+		//launching file chooser window
+		if (e.getSource() == fcOpen) {
+			
+			System.out.println(chooseFile());
+		}
 	}
 }
