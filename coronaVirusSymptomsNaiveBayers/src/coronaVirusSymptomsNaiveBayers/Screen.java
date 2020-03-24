@@ -70,7 +70,9 @@ public class Screen extends JFrame implements ActionListener {
 		//launching file chooser window
 		if (e.getSource() == fcOpen) {
 			
-			System.out.println(chooseFile());
+			FileProcessing chosenFile = new FileProcessing(chooseFile());
+			chosenFile.openFile();
+			chosenFile.readFile();
 		}
 	}
 }
