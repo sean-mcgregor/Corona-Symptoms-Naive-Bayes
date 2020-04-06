@@ -57,8 +57,8 @@ public class FileProcessing {
 				}
 			}
 			
-			for(String element: arrayOfTokens)
-				System.out.println(element);
+			fileScanner.close();
+			Dataset fileData = new Dataset(arrayOfTokens);
 		}
 		catch (FileNotFoundException e) {
 			

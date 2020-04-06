@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -58,6 +60,8 @@ public class Screen extends JFrame implements ActionListener {
 		
 		//configuring file chooser window
 		fc = new JFileChooser();
+		FileFilter csvFilter = new FileNameExtensionFilter("CSV Files", "csv");
+		fc.setFileFilter(csvFilter);
 		fc.setCurrentDirectory(new java.io.File("C:\\Users"));
 		fc.setDialogTitle("Choose File for Dataset Training");
 
