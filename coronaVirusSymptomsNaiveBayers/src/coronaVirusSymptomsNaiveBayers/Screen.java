@@ -8,14 +8,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/*
+/**
  *
- * @author seanm
+ * @author sean-mcgregor
  * 
  * @since 19-03-2020
  *
  */
-
 public class Screen extends JFrame implements ActionListener {
 	
 	//creating screen elements
@@ -25,6 +24,7 @@ public class Screen extends JFrame implements ActionListener {
 	
 	public Screen(String title) {
 		
+		//organising screen elements
 		super("title");
 		setSize(750, 400);
 		BorderLayout bl1 = new BorderLayout();
@@ -49,6 +49,10 @@ public class Screen extends JFrame implements ActionListener {
 	}
 	
 	public String chooseFile() {
+		
+		/*
+		 * A method to launch JFileChooser and select the file to be processed.
+		 */
 		
 		String filePath = "";
 		

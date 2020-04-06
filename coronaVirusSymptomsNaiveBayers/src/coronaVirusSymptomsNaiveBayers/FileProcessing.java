@@ -2,49 +2,85 @@ package coronaVirusSymptomsNaiveBayers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileProcessing {
 	
-	String fileName;
+	private String fileName;
 	File selectedFile;
 	Scanner fileScanner;
 	
 	//instantiating a FileProcessing object
 	public FileProcessing(String fileName) {
 		
-		this.fileName = fileName;
+		this.setFileName(fileName);
 	}
 	
-	//opening the file
+	
+	/**
+	 * Instantiates and opens the file.
+	 */
 	void openFile() {
 		
-		selectedFile = new File(fileName);
+		selectedFile = new File(getFileName());
 	}
 	
-	//reading file contents
-	String readFile() {
+	
+	/**
+	 * Reads the file contents.
+	 * 
+	 * @param token The current token
+	 * 
+	 * @return arrayOfTokens An array containing all tokens in the file
+	 * 
+	 */
+	ArrayList<String> readFile() {
 		
 		String token = "";
+		ArrayList<String> arrayOfTokens= new ArrayList<String>();
 		
 		try {
 			
 			fileScanner = new Scanner(selectedFile);
-			fileScanner.useDelimiter(",");
+			//fileScanner.useDelimiter(",");
 			
 			while (fileScanner.hasNext()){
 				
 				token = fileScanner.next();
-				//token = token.replaceAll(",", "");
-				System.out.println(token);
+				token = token.replaceAll(",", " ");
+				
+				//filtering out tokens that don't contain valid data
+				if (token.contains("hot") || token.contains("normal") || token.contains("cool") || token.contains("cold")) {
+					
+					arrayOfTokens.add(token);
+				}
 			}
+			
+			for(String element: arrayOfTokens)
+				System.out.println(element);
 		}
 		catch (FileNotFoundException e) {
 			
 			e.printStackTrace();
+			arrayOfTokens.add("No tokens added");
 		}
 		
-		return "File reading finished";
+		return arrayOfTokens;
+	}
+
+	/**
+	 * @return the fileName
+	 */
+	private String getFileName() {
+		return fileName;
+	}
+
+	/**
+	 * @param fileName the fileName to set
+	 */
+	private void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }
