@@ -68,7 +68,8 @@ public class Dataset {
 	public void calculateProbabilities(ArrayList <String> arrayOfTokens) {
 		
 		for(int i = 0; i < arrayOfTokens.size(); i++) {
-						
+			
+			System.out.println(arrayOfTokens.size());
 			String[] element = arrayOfTokens.get(i).split(" ");
 			
 			//checking if the patient has Covid
@@ -84,172 +85,130 @@ public class Dataset {
 				
 			if (hasCovid()) {
 				
-				//passing through each symptom and incrementing variables to reflect the status of the symptom
-				for(int j = 0; j < (element.length - 1); j++) {
-				
-					switch(j) {
+				if(element[0].equals("hot")) {
 					
-						case 0:
-							
-							switch(element[0]) {
-							
-								case "hot":
-									setTemperatureHotAndCovid(getTemperatureHotAndCovid() + 1);
-									break;
-									
-								case "normal":
-									setTemperatureNormalAndCovid(getTemperatureNormalAndCovid() + 1);
-									break;
-									
-								case "cool":
-									setTemperatureCoolAndCovid(getTemperatureCoolAndCovid() + 1);
-									break;
-									
-								case "cold":
-									setTemperatureColdAndCovid(getTemperatureColdAndCovid() + 1);
-									break;
-								 
-							}
-							
-						case 1:
-							
-							switch(element[1]) {
-								
-								case "yes":
-									setAchesAndCovid(getAchesAndCovid() + 1);
-									break;
-									
-								case "no":
-									setNoAchesAndCovid(getNoAchesAndCovid() + 1);
-									break;
-							}
-							
-						case 2:
-							
-							switch(element[2]) {
-							
-								case "yes":
-									setCoughAndCovid(getCoughAndCovid() + 1);
-									break;
-									
-								case "no":
-									setNoCoughAndCovid(getNoCoughAndCovid() + 1);
-									break;
-							}
-							
-						case 3:
-							
-							switch(element[3]) {
-							
-								case "yes":
-									setSoreThroatAndCovid(getSoreThroatAndCovid() + 1);
-									break;
-									
-								case "no":
-									setNoSoreThroatAndCovid(getNoSoreThroatAndCovid() + 1);
-									break;
-							}
-							
-						case 4:
-							
-							switch(element[4]) {
-							
-								case "yes":
-									setWasInDangerZoneAndCovid(getWasInDangerZoneAndCovid() + 1);
-									break;
-									
-								case "no":
-									setWasNotInDangerZoneAndCovid(getWasNotInDangerZoneAndCovid() + 1);
-									break;
-							}
-					}
+					setTemperatureHotAndCovid(getTemperatureHotAndCovid() + 1);
+				}
+				else if(element[0].equals("normal")) {
+					
+					setTemperatureNormalAndCovid(getTemperatureNormalAndCovid() + 1);
+				}
+				else if(element[0].equals("cool")) {
+					
+					setTemperatureCoolAndCovid(getTemperatureCoolAndCovid() + 1);
+				}
+				else if(element[0].equals("cold")) {
+					
+					setTemperatureColdAndCovid(getTemperatureColdAndCovid() + 1);
+				}
+				
+				if(element[1].equals("yes")) {
+					
+					setAchesAndCovid(getAchesAndCovid() + 1);
+					System.out.println("achesandcovid as now been set to " + getAchesAndCovid());
+				}
+				else {
+					
+					setNoAchesAndCovid(getNoAchesAndCovid() + 1);
+					System.out.println("noachesandcovid as now been set to " + getNoAchesAndCovid());
+				}
+				
+				if(element[2].equals("yes")) {
+					
+					setCoughAndCovid(getCoughAndCovid() + 1);
+				}
+				else {
+					
+					setNoCoughAndCovid(getNoCoughAndCovid() + 1);
+				}
+				
+				if(element[3].equals("yes")) {
+					
+					setNoSoreThroatAndCovid(getSoreThroatAndCovid() + 1);
+					System.out.println("sorethroatandcovid as now been set to " + getSoreThroatAndCovid());
+				}
+				else {
+					
+					setNoSoreThroatAndCovid(getNoSoreThroatAndCovid() + 1);
+					System.out.println("nosorethroatandcovid as now been set to " + getNoSoreThroatAndCovid());
+				}
+				
+				if(element[4].equals("yes")) {
+					
+					setWasInDangerZoneAndCovid(getWasInDangerZoneAndCovid() + 1);
+					System.out.println("wasindangerzoneandcovid as now been set to " + getWasInDangerZoneAndCovid());
+				}
+				else {
+					
+					setWasNotInDangerZoneAndCovid(getWasNotInDangerZoneAndCovid() + 1);
+					System.out.println("wasnotindangerzoneandcovid as now been set to " + getWasNotInDangerZoneAndCovid());
 				}
 			}
-			else {
+			else if(hasCovid() == false) {
 				
-				//passing through each symptom and incrementing variables to reflect the status of the symptom
-				for(int j = 0; j < (element.length - 1); j++) {
-				
-					switch(j) {
+				if(element[0].equals("hot")) {
 					
-						case 0:
-							
-							switch(element[0]) {
-							
-								case "hot":
-									setTemperatureHotAndNoCovid(getTemperatureHotAndNoCovid() + 1);
-									break;
-									
-								case "normal":
-									setTemperatureNormalAndNoCovid(getTemperatureNormalAndNoCovid() + 1);
-									break;
-									
-								case "cool":
-									setTemperatureCoolAndNoCovid(getTemperatureCoolAndNoCovid() + 1);
-									break;
-									
-								case "cold":
-									setTemperatureColdandNoCovid(getTemperatureColdandNoCovid() + 1);
-									break;
-								 
-							}
-							
-						case 1:
-							
-							switch(element[1]) {
-								
-								case "yes":
-									setAchesAndNoCovid(getAchesAndNoCovid() + 1);
-									break;
-									
-								case "no":
-									setNoAchesAndNoCovid(getNoAchesAndNoCovid() + 1);
-									break;
-							}
-							
-						case 2:
-							
-							switch(element[2]) {
-							
-								case "yes":
-									setCoughAndNoCovid(getCoughAndNoCovid() + 1);
-									break;
-									
-								case "no":
-									setNoCoughAndNoCovid(getNoCoughAndNoCovid() + 1);
-									break;
-							}
-							
-						case 3:
-							
-							switch(element[3]) {
-							
-								case "yes":
-									setSoreThroatAndNoCovid(getSoreThroatAndNoCovid() + 1);
-									break;
-									
-								case "no":
-									setNoSoreThroatAndNoCovid(getNoSoreThroatAndNoCovid() + 1);
-									break;
-							}
-							
-						case 4:
-							
-							switch(element[4]) {
-							
-								case "yes":
-									setWasInDangerZoneAndNoCovid(getWasInDangerZoneAndNoCovid() + 1);
-									break;
-									
-								case "no":
-									setWasNotInDangerZoneAndNoCovid(getWasNotInDangerZoneAndNoCovid() + 1);
-									break;
-							}
-					}
+					setTemperatureHotAndNoCovid(getTemperatureHotAndNoCovid() + 1);
+				}
+				else if(element[0].equals("normal")) {
+					
+					setTemperatureNormalAndNoCovid(getTemperatureNormalAndNoCovid() + 1);
+				}
+				else if(element[0].equals("cool")) {
+					
+					setTemperatureCoolAndNoCovid(getTemperatureCoolAndNoCovid() + 1);
+				}
+				else if(element[0].equals("cold")) {
+					
+					setTemperatureColdandNoCovid(getTemperatureColdandNoCovid() + 1);
+				}
+				
+				if(element[1].equals("yes")) {
+					
+					setAchesAndNoCovid(getAchesAndNoCovid() + 1);
+					System.out.println("achesandnocovid as now been set to " + getAchesAndNoCovid());
+				}
+				else {
+					
+					setNoAchesAndNoCovid(getNoAchesAndNoCovid() + 1);
+					System.out.println("noachesandnocovid as now been set to " + getNoAchesAndNoCovid());
+				}
+				
+				if(element[2].equals("yes")) {
+					
+					setCoughAndNoCovid(getCoughAndNoCovid() + 1);
+				}
+				else {
+					
+					setNoCoughAndNoCovid(getNoCoughAndNoCovid() + 1);
+				}
+				
+				if(element[3].equals("yes")) {
+					
+					setNoSoreThroatAndNoCovid(getSoreThroatAndNoCovid() + 1);
+					System.out.println("sorethroatandnocovid as now been set to " + getSoreThroatAndNoCovid());
+				}
+				else {
+					
+					setNoSoreThroatAndNoCovid(getNoSoreThroatAndNoCovid() + 1);
+					System.out.println("nosorethroatandnocovid as now been set to " + getNoSoreThroatAndNoCovid());
+				}
+				
+				if(element[4].equals("yes")) {
+					
+					setWasInDangerZoneAndNoCovid(getWasInDangerZoneAndNoCovid() + 1);
+					System.out.println("wasindangerzoneandnocovid as now been set to " + getWasInDangerZoneAndNoCovid());
+				}
+				else {
+					
+					setWasNotInDangerZoneAndNoCovid(getWasNotInDangerZoneAndNoCovid() + 1);
+					System.out.println("wasnotindangerzoneandnocovid as now been set to " + getWasNotInDangerZoneAndNoCovid());
 				}
 			}
 		}
 	}
+	
+	
 	/**
 	 * @return the arrayOfTokens
 	 */
