@@ -123,7 +123,11 @@ public class Screen extends JFrame implements ActionListener {
 		}
 		else if (e.getSource() == diagnoseButton) {
 			
-			System.out.println();
+			/*Dataset.diagnosePatient((String)temperatureDropdown.getSelectedItem(),
+							(String)achesDropdown.getSelectedItem(),
+							(String)coughDropdown.getSelectedItem(),
+							(String)soreThroatDropdown.getSelectedItem(),
+							(String)dangerZoneDropdown.getSelectedItem());*/
 		}
 	}
 }

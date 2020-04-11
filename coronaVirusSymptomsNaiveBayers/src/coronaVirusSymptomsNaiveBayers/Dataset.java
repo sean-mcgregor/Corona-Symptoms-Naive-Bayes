@@ -7,6 +7,8 @@ public class Dataset {
 	ArrayList<String> arrayOfTokens;
 	
 	private boolean hasCovid;
+	private int peopleWithCovid = 0;
+	private int peopleWithoutCovid = 0;
 	
 	private int temperatureHotAndCovid = 0;
 	private int temperatureHotAndNoCovid = 0;
@@ -57,7 +59,6 @@ public class Dataset {
 		System.out.println(wasInDangerZoneAndNoCovid);
 		System.out.println(wasNotInDangerZoneAndCovid);
 		System.out.println(wasNotInDangerZoneAndNoCovid);
-		
 	}
 	
 	/**
@@ -76,10 +77,12 @@ public class Dataset {
 			if(element[5].equals("yes")) {
 				
 				setHasCovid(true);
+				setPeopleWithCovid(getPeopleWithCovid() + 1);
 			}
 			else {
 				
 				setHasCovid(false);
+				setPeopleWithoutCovid(getPeopleWithoutCovid() + 1);
 			}
 			
 				
@@ -208,6 +211,110 @@ public class Dataset {
 		}
 	}
 	
+	
+	public void diagnosePatient(String temperatureStatus, String achesStatus, String coughStatus, String soreThroatStatus, String recentlyInDangerZoneStatus) {
+		
+		int temperatureGivenYes = 0;
+		int temperatureGivenNo = 0;
+		int achesGivenYes = 0;
+		int achesGivenNo = 0;
+		int coughGivenYes = 0;
+		int coughGivenNo = 0;
+		int soreThroatGivenYes = 0;
+		int soreThroatGivenNo = 0;
+		int dangerZoneGivenYes = 0;
+		int dangerZoneGivenNo = 0;
+		
+		float probabilityOfHavingCovid;
+		float probabilityOfHavingNoCovid;
+		
+		if (temperatureStatus.equals("hot")) {
+			
+			temperatureGivenYes = getTemperatureHotAndCovid();
+			temperatureGivenNo = getTemperatureHotAndNoCovid();
+		}
+		else if (temperatureStatus.equals("normal")) {
+			
+			temperatureGivenYes = getTemperatureNormalAndCovid();
+			temperatureGivenNo = getTemperatureNormalAndNoCovid();
+		}
+		else if (temperatureStatus.equals("cool")) {
+			
+			temperatureGivenYes = getTemperatureCoolAndCovid();
+			temperatureGivenNo = getTemperatureCoolAndNoCovid();
+		}
+		else if (temperatureStatus.equals("cold")) {
+			
+			temperatureGivenYes = getTemperatureColdAndCovid();
+			temperatureGivenNo = getTemperatureColdandNoCovid();
+		}
+		
+		if (achesStatus.equals("yes")) {
+			
+			achesGivenYes = getAchesAndCovid();
+			achesGivenNo = getAchesAndNoCovid();
+		}
+		else if (achesStatus.equals("no")) {
+			
+			achesGivenYes = getNoAchesAndCovid();
+			achesGivenNo = getNoAchesAndNoCovid();
+		}
+		
+		if (coughStatus.equals("yes")) {
+			
+			coughGivenYes = getCoughAndCovid();
+			coughGivenNo = getCoughAndNoCovid();
+		}
+		else if (coughStatus.equals("no")) {
+			
+			coughGivenYes = getNoCoughAndCovid();
+			coughGivenNo = getNoCoughAndNoCovid();
+		}
+		
+		if (soreThroatStatus.equals("yes")) {
+			
+			soreThroatGivenYes = getSoreThroatAndCovid();
+			soreThroatGivenNo = getSoreThroatAndNoCovid();
+		}
+		else if (soreThroatStatus.equals("no")) {
+			
+			soreThroatGivenYes = getNoSoreThroatAndCovid();
+			soreThroatGivenNo = getNoSoreThroatAndNoCovid();
+		}
+		
+		if (recentlyInDangerZoneStatus.equals("yes")) {
+			
+			dangerZoneGivenYes = getWasInDangerZoneAndCovid();
+			dangerZoneGivenNo = getWasInDangerZoneAndNoCovid();
+		}
+		else if (recentlyInDangerZoneStatus.equals("no")) {
+			
+			dangerZoneGivenYes = getWasNotInDangerZoneAndCovid();
+			dangerZoneGivenNo = getWasNotInDangerZoneAndNoCovid();
+		}
+		
+		probabilityOfHavingCovid =	naiveBayes(	temperatureGivenYes, achesGivenYes, coughGivenYes,
+												soreThroatGivenYes, dangerZoneGivenYes, getPeopleWithCovid());
+		
+		probabilityOfHavingNoCovid= naiveBayes(	temperatureGivenNo, achesGivenNo, coughGivenNo,
+												soreThroatGivenNo, dangerZoneGivenNo, getPeopleWithoutCovid());
+		
+		System.out.println(probabilityOfHavingCovid + " is the chance of having covid.");
+		System.out.println(probabilityOfHavingNoCovid + " is the chance of not having covid.");
+	}
+	
+	
+	public float naiveBayes(int temperatureCount, int achesCount, int coughCount, int soreThroatCount, int dangerZoneCount, int peopleCount) {
+		
+		float probability = 	( (float)temperatureCount / (float)peopleCount ) *
+								( (float)achesCount / (float)peopleCount ) *
+								( (float)coughCount / (float)peopleCount ) *
+								( (float)soreThroatCount / (float)peopleCount ) *
+								( (float)dangerZoneCount / (float)peopleCount ) *
+								( (float)peopleCount / (float)(getPeopleWithCovid() + getPeopleWithoutCovid() ) );
+	
+		return probability;
+	}
 	
 	/**
 	 * @return the arrayOfTokens
@@ -620,5 +727,33 @@ public class Dataset {
 	 */
 	public void setHasCovid(boolean hasCovid) {
 		this.hasCovid = hasCovid;
+	}
+
+	/**
+	 * @return the peopleWithCovid
+	 */
+	public int getPeopleWithCovid() {
+		return peopleWithCovid;
+	}
+
+	/**
+	 * @param peopleWithCovid the peopleWithCovid to set
+	 */
+	public void setPeopleWithCovid(int peopleWithCovid) {
+		this.peopleWithCovid = peopleWithCovid;
+	}
+
+	/**
+	 * @return the peopleWithoutCovid
+	 */
+	public int getPeopleWithoutCovid() {
+		return peopleWithoutCovid;
+	}
+
+	/**
+	 * @param peopleWithoutCovid the peopleWithoutCovid to set
+	 */
+	public void setPeopleWithoutCovid(int peopleWithoutCovid) {
+		this.peopleWithoutCovid = peopleWithoutCovid;
 	}
 }
