@@ -70,7 +70,6 @@ public class Dataset {
 		
 		for(int i = 0; i < arrayOfTokens.size(); i++) {
 			
-			System.out.println(arrayOfTokens.size());
 			String[] element = arrayOfTokens.get(i).split(" ");
 			
 			//checking if the patient has Covid
@@ -108,12 +107,10 @@ public class Dataset {
 				if(element[1].equals("yes")) {
 					
 					setAchesAndCovid(getAchesAndCovid() + 1);
-					System.out.println("achesandcovid as now been set to " + getAchesAndCovid());
 				}
 				else {
 					
 					setNoAchesAndCovid(getNoAchesAndCovid() + 1);
-					System.out.println("noachesandcovid as now been set to " + getNoAchesAndCovid());
 				}
 				
 				if(element[2].equals("yes")) {
@@ -128,23 +125,19 @@ public class Dataset {
 				if(element[3].equals("yes")) {
 					
 					setNoSoreThroatAndCovid(getSoreThroatAndCovid() + 1);
-					System.out.println("sorethroatandcovid as now been set to " + getSoreThroatAndCovid());
 				}
 				else {
 					
 					setNoSoreThroatAndCovid(getNoSoreThroatAndCovid() + 1);
-					System.out.println("nosorethroatandcovid as now been set to " + getNoSoreThroatAndCovid());
 				}
 				
 				if(element[4].equals("yes")) {
 					
 					setWasInDangerZoneAndCovid(getWasInDangerZoneAndCovid() + 1);
-					System.out.println("wasindangerzoneandcovid as now been set to " + getWasInDangerZoneAndCovid());
 				}
 				else {
 					
 					setWasNotInDangerZoneAndCovid(getWasNotInDangerZoneAndCovid() + 1);
-					System.out.println("wasnotindangerzoneandcovid as now been set to " + getWasNotInDangerZoneAndCovid());
 				}
 			}
 			else if(hasCovid() == false) {
@@ -169,12 +162,10 @@ public class Dataset {
 				if(element[1].equals("yes")) {
 					
 					setAchesAndNoCovid(getAchesAndNoCovid() + 1);
-					System.out.println("achesandnocovid as now been set to " + getAchesAndNoCovid());
 				}
 				else {
 					
 					setNoAchesAndNoCovid(getNoAchesAndNoCovid() + 1);
-					System.out.println("noachesandnocovid as now been set to " + getNoAchesAndNoCovid());
 				}
 				
 				if(element[2].equals("yes")) {
@@ -189,23 +180,19 @@ public class Dataset {
 				if(element[3].equals("yes")) {
 					
 					setNoSoreThroatAndNoCovid(getSoreThroatAndNoCovid() + 1);
-					System.out.println("sorethroatandnocovid as now been set to " + getSoreThroatAndNoCovid());
 				}
 				else {
 					
 					setNoSoreThroatAndNoCovid(getNoSoreThroatAndNoCovid() + 1);
-					System.out.println("nosorethroatandnocovid as now been set to " + getNoSoreThroatAndNoCovid());
 				}
 				
 				if(element[4].equals("yes")) {
 					
 					setWasInDangerZoneAndNoCovid(getWasInDangerZoneAndNoCovid() + 1);
-					System.out.println("wasindangerzoneandnocovid as now been set to " + getWasInDangerZoneAndNoCovid());
 				}
 				else {
 					
 					setWasNotInDangerZoneAndNoCovid(getWasNotInDangerZoneAndNoCovid() + 1);
-					System.out.println("wasnotindangerzoneandnocovid as now been set to " + getWasNotInDangerZoneAndNoCovid());
 				}
 			}
 		}
