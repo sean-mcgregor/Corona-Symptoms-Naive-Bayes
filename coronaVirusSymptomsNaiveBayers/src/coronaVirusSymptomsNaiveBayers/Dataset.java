@@ -124,7 +124,7 @@ public class Dataset {
 				
 				if(element[3].equals("yes")) {
 					
-					setNoSoreThroatAndCovid(getSoreThroatAndCovid() + 1);
+					setSoreThroatAndCovid(getSoreThroatAndCovid() + 1);
 				}
 				else {
 					
@@ -262,11 +262,15 @@ public class Dataset {
 			
 			soreThroatGivenYes = getSoreThroatAndCovid();
 			soreThroatGivenNo = getSoreThroatAndNoCovid();
+			System.out.println(soreThroatGivenYes);
+			System.out.println(soreThroatGivenNo);
 		}
 		else if (soreThroatStatus.equals("no")) {
 			
 			soreThroatGivenYes = getNoSoreThroatAndCovid();
 			soreThroatGivenNo = getNoSoreThroatAndNoCovid();
+			System.out.println(soreThroatGivenYes);
+			System.out.println(soreThroatGivenNo);
 		}
 		
 		if (recentlyInDangerZoneStatus.equals("yes")) {
@@ -280,11 +284,16 @@ public class Dataset {
 			dangerZoneGivenNo = getWasNotInDangerZoneAndNoCovid();
 		}
 		
-		probabilityOfHavingCovid =	naiveBayes(	temperatureGivenYes, achesGivenYes, coughGivenYes,
-												soreThroatGivenYes, dangerZoneGivenYes, getPeopleWithCovid());
+		float temp1 = naiveBayes(temperatureGivenYes, achesGivenYes, coughGivenYes,
+								soreThroatGivenYes, dangerZoneGivenYes, getPeopleWithCovid());
 		
-		probabilityOfHavingNoCovid= naiveBayes(	temperatureGivenNo, achesGivenNo, coughGivenNo,
-												soreThroatGivenNo, dangerZoneGivenNo, getPeopleWithoutCovid());
+		float temp2 = naiveBayes(temperatureGivenNo, achesGivenNo, coughGivenNo,
+								soreThroatGivenNo, dangerZoneGivenNo, getPeopleWithoutCovid());
+
+		probabilityOfHavingCovid = 	normalisation(temp1, temp2);
+		probabilityOfHavingNoCovid = normalisation(temp2, temp1);
+		
+		System.out.println();
 		
 		System.out.println(probabilityOfHavingCovid + " is the chance of having covid.");
 		System.out.println(probabilityOfHavingNoCovid + " is the chance of not having covid.");
@@ -300,6 +309,12 @@ public class Dataset {
 								( (float)dangerZoneCount / (float)peopleCount ) *
 								( (float)peopleCount / (float)(getPeopleWithCovid() + getPeopleWithoutCovid() ) );
 	
+		return probability;
+	}
+	
+	public float normalisation(float value1, float value2) {
+		
+		float probability = value1 / (value1 + value2);
 		return probability;
 	}
 	

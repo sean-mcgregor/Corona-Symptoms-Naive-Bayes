@@ -27,6 +27,7 @@ public class Screen extends JFrame implements ActionListener {
 	JPanel northPanel, southPanel, eastPanel, westPanel, centerPanel;
 	JComboBox<String> temperatureDropdown, achesDropdown, coughDropdown, soreThroatDropdown, dangerZoneDropdown, hasCovidDropdown;
 	JLabel l1, l2, l3, l4 ,l5, l6;
+	Dataset fileData;
 	
 	public Screen(String title) {
 		
@@ -87,12 +88,12 @@ public class Screen extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
-	
+	/**
+	 * A method to launch JFileChooser and select the file to be processed.
+	 * 
+	 * @param filePath The path to the chosen  file
+	 */
 	public String chooseFile() {
-		
-		/*
-		 * A method to launch JFileChooser and select the file to be processed.
-		 */
 		
 		String filePath = "";
 		
@@ -119,15 +120,15 @@ public class Screen extends JFrame implements ActionListener {
 			
 			FileProcessing chosenFile = new FileProcessing(chooseFile());
 			chosenFile.openFile();
-			chosenFile.readFile();
+			fileData = new Dataset(chosenFile.readFile());
 		}
 		else if (e.getSource() == diagnoseButton) {
 			
-			/*Dataset.diagnosePatient((String)temperatureDropdown.getSelectedItem(),
-									(String)achesDropdown.getSelectedItem(),
-									(String)coughDropdown.getSelectedItem(),
-									(String)soreThroatDropdown.getSelectedItem(),
-									(String)dangerZoneDropdown.getSelectedItem());*/
+			fileData.diagnosePatient(	(String)temperatureDropdown.getSelectedItem(),
+										(String)achesDropdown.getSelectedItem(),
+										(String)coughDropdown.getSelectedItem(),
+										(String)soreThroatDropdown.getSelectedItem(),
+										(String)dangerZoneDropdown.getSelectedItem());
 		}
 	}
 }

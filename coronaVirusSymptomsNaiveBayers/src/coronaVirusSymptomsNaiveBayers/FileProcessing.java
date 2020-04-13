@@ -20,6 +20,8 @@ public class FileProcessing {
 	
 	/**
 	 * Instantiates and opens the file.
+	 * 
+	 * @param selectedFile The selected file.
 	 */
 	void openFile() {
 		
@@ -35,7 +37,7 @@ public class FileProcessing {
 	 * @return arrayOfTokens An array containing all tokens in the file
 	 * 
 	 */
-	ArrayList<String> readFile() {
+	public ArrayList<String> readFile() {
 		
 		String token = "";
 		ArrayList<String> arrayOfTokens= new ArrayList<String>();
@@ -43,7 +45,6 @@ public class FileProcessing {
 		try {
 			
 			fileScanner = new Scanner(selectedFile);
-			//fileScanner.useDelimiter(",");
 			
 			while (fileScanner.hasNext()){
 				
@@ -58,7 +59,6 @@ public class FileProcessing {
 			}
 			
 			fileScanner.close();
-			Dataset fileData = new Dataset(arrayOfTokens);
 		}
 		catch (FileNotFoundException e) {
 			
