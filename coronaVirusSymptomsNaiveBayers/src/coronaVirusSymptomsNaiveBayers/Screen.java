@@ -1,6 +1,7 @@
 package coronaVirusSymptomsNaiveBayers;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -26,17 +27,17 @@ public class Screen extends JFrame implements ActionListener {
 	JFileChooser fc;
 	JPanel northPanel, southPanel, eastPanel, westPanel, centerPanel;
 	JComboBox<String> temperatureDropdown, achesDropdown, coughDropdown, soreThroatDropdown, dangerZoneDropdown, hasCovidDropdown;
-	JLabel l1, l2, l3, l4 ,l5, l6;
+	JLabel l1, l2, l3, l4 ,l5;
 	Dataset fileData;
 	
 	public Screen(String title) {
 		
 		//organising screen elements
-		super("title");
+		super("CoronaVirus Diagnostic Tool");
 		setSize(750, 600);
 		BorderLayout bl1 = new BorderLayout();
 		
-		fcOpen = new JButton("Select File");
+		fcOpen = new JButton("Select Dataset File");
 		fcOpen.addActionListener(this);
 		
 		diagnoseButton = new JButton("Diagnose a patient");
@@ -61,13 +62,15 @@ public class Screen extends JFrame implements ActionListener {
 		setLayout(bl1);
 		
 		centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(5, 2));
 		northPanel = new JPanel();
 		southPanel = new JPanel();
+		southPanel.setLayout(new GridLayout(1,1));
 		eastPanel = new JPanel();
 		westPanel = new JPanel();
 		
-		northPanel.add(fcOpen);
-		eastPanel.add(diagnoseButton);
+		westPanel.add(fcOpen);
+		southPanel.add(diagnoseButton);
 		
 		centerPanel.add(l1);
 		centerPanel.add(temperatureDropdown);
@@ -124,11 +127,11 @@ public class Screen extends JFrame implements ActionListener {
 		}
 		else if (e.getSource() == diagnoseButton) {
 			
-			fileData.diagnosePatient(	(String)temperatureDropdown.getSelectedItem(),
+			System.out.println(fileData.diagnosePatient(	(String)temperatureDropdown.getSelectedItem(),
 										(String)achesDropdown.getSelectedItem(),
 										(String)coughDropdown.getSelectedItem(),
 										(String)soreThroatDropdown.getSelectedItem(),
-										(String)dangerZoneDropdown.getSelectedItem());
+										(String)dangerZoneDropdown.getSelectedItem()));
 		}
 	}
 }

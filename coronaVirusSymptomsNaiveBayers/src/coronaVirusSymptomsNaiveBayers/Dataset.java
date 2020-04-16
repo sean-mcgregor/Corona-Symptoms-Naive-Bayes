@@ -62,7 +62,7 @@ public class Dataset {
 	}
 	
 	/**
-	 * Calculates the probabilities to be used in Naive Baye's from the data set provided.
+	 * Calculates the probabilities to be used in Naive Bayes from the data set provided.
 	 * 
 	 * @param arrayOfTokens each element in the array represents one patient and all of their symptoms.
 	 */
@@ -179,7 +179,7 @@ public class Dataset {
 				
 				if(element[3].equals("yes")) {
 					
-					setNoSoreThroatAndNoCovid(getSoreThroatAndNoCovid() + 1);
+					setSoreThroatAndNoCovid(getSoreThroatAndNoCovid() + 1);
 				}
 				else {
 					
@@ -199,7 +199,7 @@ public class Dataset {
 	}
 	
 	
-	public void diagnosePatient(String temperatureStatus, String achesStatus, String coughStatus, String soreThroatStatus, String recentlyInDangerZoneStatus) {
+	public String diagnosePatient(String temperatureStatus, String achesStatus, String coughStatus, String soreThroatStatus, String recentlyInDangerZoneStatus) {
 		
 		int temperatureGivenYes = 0;
 		int temperatureGivenNo = 0;
@@ -293,10 +293,17 @@ public class Dataset {
 		probabilityOfHavingCovid = 	normalisation(temp1, temp2);
 		probabilityOfHavingNoCovid = normalisation(temp2, temp1);
 		
-		System.out.println();
+		probabilityOfHavingCovid = (int)(probabilityOfHavingCovid * 100);
+		probabilityOfHavingNoCovid = (int)(probabilityOfHavingNoCovid * 100);
 		
-		System.out.println(probabilityOfHavingCovid + " is the chance of having covid.");
-		System.out.println(probabilityOfHavingNoCovid + " is the chance of not having covid.");
+		if (probabilityOfHavingCovid > probabilityOfHavingNoCovid) {
+			
+			return "There is a " + probabilityOfHavingCovid + "% chance of the patient having Covid-19.";
+		}
+		else {
+			
+			return "There is only a " + probabilityOfHavingCovid + "% chance of the patient having Covid-19.";
+		}
 	}
 	
 	
@@ -308,7 +315,7 @@ public class Dataset {
 								( (float)soreThroatCount / (float)peopleCount ) *
 								( (float)dangerZoneCount / (float)peopleCount ) *
 								( (float)peopleCount / (float)(getPeopleWithCovid() + getPeopleWithoutCovid() ) );
-	
+		
 		return probability;
 	}
 	
