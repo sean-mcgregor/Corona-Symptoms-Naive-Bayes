@@ -11,6 +11,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -29,6 +30,7 @@ public class Screen extends JFrame implements ActionListener {
 	JComboBox<String> temperatureDropdown, achesDropdown, coughDropdown, soreThroatDropdown, dangerZoneDropdown, hasCovidDropdown;
 	JLabel l1, l2, l3, l4 ,l5;
 	Dataset fileData;
+	JFrame message;
 	
 	public Screen(String title) {
 		
@@ -52,6 +54,8 @@ public class Screen extends JFrame implements ActionListener {
 		soreThroatDropdown = new JComboBox<String>(yesNo);
 		dangerZoneDropdown = new JComboBox<String>(yesNo);
 		hasCovidDropdown = new JComboBox<String>(yesNo);
+		
+		message = new JFrame();
 		
 		l1 = new JLabel("Enter Patient Temperature : ");
 		l2 = new JLabel("Patient has aches? : ");
@@ -94,7 +98,7 @@ public class Screen extends JFrame implements ActionListener {
 	/**
 	 * A method to launch JFileChooser and select the file to be processed.
 	 * 
-	 * @param filePath The path to the chosen  file
+	 * @return filePath
 	 */
 	public String chooseFile() {
 		
@@ -127,11 +131,18 @@ public class Screen extends JFrame implements ActionListener {
 		}
 		else if (e.getSource() == diagnoseButton) {
 			
-			System.out.println(fileData.diagnosePatient(	(String)temperatureDropdown.getSelectedItem(),
-										(String)achesDropdown.getSelectedItem(),
-										(String)coughDropdown.getSelectedItem(),
-										(String)soreThroatDropdown.getSelectedItem(),
-										(String)dangerZoneDropdown.getSelectedItem()));
+			try {
+				
+				JOptionPane.showMessageDialog(message, fileData.diagnosePatient(	(String)temperatureDropdown.getSelectedItem(),
+											(String)achesDropdown.getSelectedItem(),
+											(String)coughDropdown.getSelectedItem(),
+											(String)soreThroatDropdown.getSelectedItem(),
+											(String)dangerZoneDropdown.getSelectedItem()));
+			}
+			catch (Exception DatasetNotExistent){
+				
+				JOptionPane.showMessageDialog(message, "You have not yet trained the program using an appropriately formatted CSV file.");
+			}
 		}
 	}
 }

@@ -43,28 +43,14 @@ public class Dataset {
 	public Dataset(ArrayList <String> arrayOfTokens) {
 		
 		this.setArrayOfTokens(arrayOfTokens);
-		
 		this.calculateProbabilities(arrayOfTokens);
-		
-		System.out.println(temperatureHotAndCovid);
-		System.out.println(temperatureHotAndNoCovid);
-		System.out.println(temperatureNormalAndCovid);
-		System.out.println(temperatureNormalAndNoCovid);
-		System.out.println(temperatureCoolAndCovid);
-		System.out.println(temperatureCoolAndNoCovid);
-		System.out.println(temperatureColdAndCovid);
-		System.out.println(temperatureColdandNoCovid);
-		
-		System.out.println(wasInDangerZoneAndCovid);
-		System.out.println(wasInDangerZoneAndNoCovid);
-		System.out.println(wasNotInDangerZoneAndCovid);
-		System.out.println(wasNotInDangerZoneAndNoCovid);
 	}
+	
 	
 	/**
 	 * Calculates the probabilities to be used in Naive Bayes from the data set provided.
 	 * 
-	 * @param arrayOfTokens each element in the array represents one patient and all of their symptoms.
+	 * @param arrayOfTokens Each element in the array represents one patient and all of their symptoms.
 	 */
 	public void calculateProbabilities(ArrayList <String> arrayOfTokens) {
 		
@@ -198,7 +184,21 @@ public class Dataset {
 		}
 	}
 	
-	
+	/**
+	 * Diagnoses a patient based on the symptoms read from user input through the GUI.
+	 * 
+	 * @param temperatureStatus Patient temperature: hot/normal/cool/cold
+	 * 
+	 * @param achesStatus Patient has aches: yes/no
+	 * 
+	 * @param coughStatus Patient has cough: yes/no
+	 * 
+	 * @param soreThroatStatus Patient has sore throat: yes/no
+	 * 
+	 * @param recentlyInDangerZoneStatus Patient was recently in a danger zone: yes/no
+	 * 
+	 * @return A string containing the % chance of the patient having Covid-19 reflective of the symptoms input
+	 */
 	public String diagnosePatient(String temperatureStatus, String achesStatus, String coughStatus, String soreThroatStatus, String recentlyInDangerZoneStatus) {
 		
 		int temperatureGivenYes = 0;
@@ -262,15 +262,11 @@ public class Dataset {
 			
 			soreThroatGivenYes = getSoreThroatAndCovid();
 			soreThroatGivenNo = getSoreThroatAndNoCovid();
-			System.out.println(soreThroatGivenYes);
-			System.out.println(soreThroatGivenNo);
 		}
 		else if (soreThroatStatus.equals("no")) {
 			
 			soreThroatGivenYes = getNoSoreThroatAndCovid();
 			soreThroatGivenNo = getNoSoreThroatAndNoCovid();
-			System.out.println(soreThroatGivenYes);
-			System.out.println(soreThroatGivenNo);
 		}
 		
 		if (recentlyInDangerZoneStatus.equals("yes")) {
@@ -306,7 +302,23 @@ public class Dataset {
 		}
 	}
 	
-	
+	/**
+	 * The naive bayes algorithm used to calculate the % chance of the patient having Covid-19
+	 * 
+	 * @param temperatureCount Headcount of patients with provided temperature status given yes/no
+	 * 
+	 * @param achesCount Headcount of patients with provided aches status given yes/no
+	 * 
+	 * @param coughCount Headcount of patients with provided cough status given yes/no
+	 * 
+	 * @param soreThroatCount Headcount of patients with provided sore throat status given yes/no
+	 * 
+	 * @param dangerZoneCount Headcount of patients with provided danger zone status given yes/no
+	 * 
+	 * @param peopleCount Headcount of patients
+	 * 
+	 * @return The probability of yes/no given the symptoms
+	 */
 	public float naiveBayes(int temperatureCount, int achesCount, int coughCount, int soreThroatCount, int dangerZoneCount, int peopleCount) {
 		
 		float probability = 	( (float)temperatureCount / (float)peopleCount ) *
@@ -319,6 +331,15 @@ public class Dataset {
 		return probability;
 	}
 	
+	/**
+	 * Normalises the percentages of p(yes) and p(no)
+	 * 
+	 * @param value1 The value to be normalised as a %
+	 * 
+	 * @param value2 The value used to normalise value1
+	 * 
+	 * @return The normalised probability
+	 */
 	public float normalisation(float value1, float value2) {
 		
 		float probability = value1 / (value1 + value2);
