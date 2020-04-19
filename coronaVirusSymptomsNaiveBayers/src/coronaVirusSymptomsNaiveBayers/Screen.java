@@ -119,7 +119,7 @@ public class Screen extends JFrame implements ActionListener {
 		return filePath;
 	}
 	 
-	
+
 	public void actionPerformed(ActionEvent e) {
 		
 		//launching file chooser window
@@ -130,6 +130,8 @@ public class Screen extends JFrame implements ActionListener {
 			fileData = new Dataset(chosenFile.readFile());
 		}
 		else if (e.getSource() == diagnoseButton) {
+			
+			//diagnosing patient using symptoms
 			
 			try {
 				
