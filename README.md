@@ -8,3 +8,6 @@ The program then processes the selected file using the FileProcessing.java and t
 The program then uses the Naive Bayes algorithm to calculate the % chance of a patient having Corona Virus based on symptoms the user inputs into the GUI.
 
 If I had had more time I would have implemented a way to write additional lines to the dataset file through the GUI. I would also have spent a bit more time on the layout/design of the screen and made it look more appealing.
+
+
+Youtube video link: https://youtu.be/HSctGxLmps0
